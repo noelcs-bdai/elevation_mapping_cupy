@@ -62,6 +62,7 @@ add_library(${PROJECT_NAME}
   src/Draw.cpp
   src/GridMapPreprocessing.cpp
   src/LoadGridmapFromImage.cpp
+  src/LoadGridmapFromHeightmap.cpp
   src/PlanarRegion.cpp
   src/PlaneDecompositionPipeline.cpp
   src/Postprocessing.cpp
