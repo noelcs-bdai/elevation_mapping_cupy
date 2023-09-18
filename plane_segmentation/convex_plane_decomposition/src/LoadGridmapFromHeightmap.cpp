@@ -61,7 +61,7 @@ static bool addLayerFromHeightmap(const matrix_t& heightmap, const std::string& 
 }
 
 grid_map::GridMap loadGridmapFromHeightmap(const std::string& filePath, const std::string& elevationLayer, const std::string& frameId,
-                                       double resolution, double scale) {
+                                       double resolution, double scale, double x_pos) {
   // Read the file
   matrix_t heightmap = load_csv<matrix_t>(filePath);
 
@@ -75,7 +75,7 @@ grid_map::GridMap loadGridmapFromHeightmap(const std::string& filePath, const st
   // cv::minMaxLoc(image, &minValue, &maxValue);
 
   grid_map::GridMap mapOut({elevationLayer});
-  const grid_map::Position position = grid_map::Position(0.0, 0.0);
+  const grid_map::Position position = grid_map::Position(x_pos, 0.0);
   mapOut.setFrameId(frameId);
   const double lengthX = resolution * heightmap.rows();
   const double lengthY = resolution * heightmap.cols();

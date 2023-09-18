@@ -26,6 +26,6 @@ using matrix_t = Eigen::Matrix<scalar_t, Eigen::Dynamic, Eigen::Dynamic>;
  * @return Gridmap with the loaded image as elevation layer.
  */
 grid_map::GridMap loadGridmapFromHeightmap(const std::string& filePath, const std::string& elevationLayer, const std::string& frameId,
-                                       double resolution, double scale);
+                                       double resolution, double scale, double x_pos = 0.0);
 
 }  // namespace convex_plane_decomposition
