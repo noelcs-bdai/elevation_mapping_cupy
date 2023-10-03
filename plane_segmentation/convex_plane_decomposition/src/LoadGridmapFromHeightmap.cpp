@@ -32,15 +32,12 @@ M load_csv (const std::string & path) {
 }
 
 static bool addLayerFromHeightmap(const matrix_t& heightmap, const std::string& layer,
-                              grid_map::GridMap& gridMap, const float lowerValue = 0.0,
-                              const float upperValue = 1.0)
+                              grid_map::GridMap& gridMap)
 {
   if (gridMap.getSize()(0) != heightmap.rows() || gridMap.getSize()(1) != heightmap.cols()) {
     std::cerr << "Heightmap size does not correspond to grid map size!" << std::endl;
     return false;
   }
-
-  const float mapValueDifference = upperValue - lowerValue;
 
   float maxHeightmapValue = heightmap.maxCoeff();
 
@@ -53,7 +50,6 @@ static bool addLayerFromHeightmap(const matrix_t& heightmap, const std::string& 
 
     // Compute value.
     const scalar_t heightmapValue = heightmap(imageIndex(0), imageIndex(1));
-    // const float mapValue = lowerValue + mapValueDifference * ((float) heightmapValue / maxHeightmapValue);
     data(gridMapIndex(0), gridMapIndex(1)) = heightmapValue;
   }
 
@@ -81,9 +77,7 @@ grid_map::GridMap loadGridmapFromHeightmap(const std::string& filePath, const st
   const double lengthY = resolution * heightmap.cols();
   grid_map::Length length(lengthX, lengthY);
   mapOut.setGeometry(length, resolution, position);
-  addLayerFromHeightmap(heightmap, elevationLayer, mapOut, float(0.0), float(scale));
-  // grid_map::GridMapCvConverter::initializeFromImage(image, resolution, mapOut, grid_map::Position(0.0, 0.0));
-  // grid_map::GridMapCvConverter::addLayerFromImage<unsigned char, 1>(image, elevationLayer, mapOut, float(0.0), float(scale), 0.5);
+  addLayerFromHeightmap(heightmap, elevationLayer, mapOut);
   return mapOut;
 }
 
